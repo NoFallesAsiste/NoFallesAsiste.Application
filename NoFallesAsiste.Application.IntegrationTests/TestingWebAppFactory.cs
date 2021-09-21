@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NoFallesAsiste.Application.Contexts;
+using NoFallesAsiste.Application.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace NoFallesAsiste.Application.IntegrationTests
             {
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
-                    typeof(DbContextOptions<ProgramaContext>));
+                    typeof(DbContextOptions<ApplicationDbContext>));
                 if (descriptor != null)
                 {
                     services.Remove(descriptor);
@@ -27,7 +27,7 @@ namespace NoFallesAsiste.Application.IntegrationTests
                 var serviceProvider = new ServiceCollection()
                     .AddEntityFrameworkInMemoryDatabase()
                     .BuildServiceProvider();
-                services.AddDbContext<ProgramaContext>(options =>
+                services.AddDbContext<ApplicationDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryProgramaTest");
                     options.UseInternalServiceProvider(serviceProvider);
@@ -35,7 +35,7 @@ namespace NoFallesAsiste.Application.IntegrationTests
                 var sp = services.BuildServiceProvider();
                 using (var scope = sp.CreateScope())
                 {
-                    using (var appContext = scope.ServiceProvider.GetRequiredService<ProgramaContext>())
+                    using (var appContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
                     {
                         try
                         {

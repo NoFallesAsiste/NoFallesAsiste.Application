@@ -20,8 +20,8 @@ namespace NoFallesAsiste.Application.IntegrationTests
             var response = await _client.GetAsync("/Programas");
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
-            Assert.Contains("Analísis y Desarrollo de sistemas de información", responseString);
-            Assert.Contains("Analísis y Desarrollo de software", responseString);
+            Assert.Contains("Analisis y Desarrollo de sistemas de informacion", responseString);
+            Assert.Contains("Analisis y Desarrollo de software", responseString);
         }
         [Fact]
         public async Task Create_WhenCalled_ReturnsCreateForm()
@@ -37,7 +37,7 @@ namespace NoFallesAsiste.Application.IntegrationTests
             var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Programas/Create");
             var formModel = new Dictionary<string, string>
                 {
-                    { "Description", "Sin descripción" },
+                    { "Description", "Sin descripcion" },
                     { "Version", "3" },
                     { "TypeProgramId", "2" }
                 };
@@ -54,7 +54,7 @@ namespace NoFallesAsiste.Application.IntegrationTests
             var formModel = new Dictionary<string, string>
             {
                 { "Name", "Nuevo Programa" },
-                { "Description", "Sin descripción" },
+                { "Description", "Sin descripcion" },
                 { "Version", "3" },
                 { "TypeProgramId", "2" }
             };
@@ -63,7 +63,7 @@ namespace NoFallesAsiste.Application.IntegrationTests
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             Assert.Contains("Nuevo Programa", responseString);
-            Assert.Contains("Sin descripción", responseString);
+            Assert.Contains("Sin descripcion", responseString);
         }
     }
 }

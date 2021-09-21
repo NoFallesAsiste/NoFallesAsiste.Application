@@ -54,7 +54,7 @@ namespace NoFallesAsiste.ApplicationTest.Validation
         {
             new object[] { new DateTime(2021, 09, 19), new DateTime(2022, 7, 01), 1 },
             new object[] { new DateTime(2021, 09, 19), new DateTime(2023, 8, 24), 2 },
-            new object[] { new DateTime(2021, 09, 19), new DateTime(2022, 5, 19), 3 }
+            new object[] { new DateTime(2021, 09, 19), new DateTime(2022, 5, 15), 3 }
         };
 
 

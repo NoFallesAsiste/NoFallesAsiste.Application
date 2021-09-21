@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NoFallesAsiste.Application.Contexts;
+using NoFallesAsiste.Application.Data;
 using System;
 
 namespace EmployeesApp.Extensions
@@ -13,7 +13,7 @@ namespace EmployeesApp.Extensions
         {
             using (var scope = webHost.Services.CreateScope())
             {
-                using (var appContext = scope.ServiceProvider.GetRequiredService<ProgramaContext>())
+                using (var appContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
                 {
                     try
                     {

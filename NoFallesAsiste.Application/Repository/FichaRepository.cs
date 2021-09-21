@@ -1,5 +1,4 @@
-﻿using NoFallesAsiste.Application.Contexts;
-using NoFallesAsiste.Application.Contracts;
+﻿using NoFallesAsiste.Application.Contracts;
 using NoFallesAsiste.Application.Data;
 using NoFallesAsiste.Application.Models;
 using System;
@@ -11,9 +10,9 @@ namespace NoFallesAsiste.Application.Repository
 {
     public class FichaRepository : IFichaRepository
     {
-        private readonly FichaContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public FichaRepository(FichaContext context)
+        public FichaRepository(ApplicationDbContext context)
         {
             _context = context;
         }
