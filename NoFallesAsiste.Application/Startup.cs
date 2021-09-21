@@ -35,7 +35,7 @@ namespace NoFallesAsiste.Application
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddScoped<IProgramaRepository, ProgramaRepository>();
+            services.AddScoped<IProgramsRepository, ProgramsRepository>();
             services.AddScoped<IFichaRepository, FichaRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

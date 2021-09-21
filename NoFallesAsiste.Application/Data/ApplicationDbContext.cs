@@ -17,20 +17,20 @@ namespace NoFallesAsiste.Application.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Programa>()
+            modelBuilder.Entity<Programs>()
                 .HasData
                 (
-                 new Programa
+                 new Programs
                  {
-                     Id = 1,
+                     ProgramsId = 1,
                      Name = "Analisis y Desarrollo de sistemas de informacion",
                      Description = "Programa para el estudio del ciclo de vida del software y su desarrollo",
                      Version = 1.0,
                      TypeProgramId = 1,
                  },
-                 new Programa
+                 new Programs
                  {
-                     Id = 2,
+                     ProgramsId = 2,
                      Name = "Analisis y Desarrollo de software",
                      Description = "Programa para el estudio del ciclo de vida del software y su desarrollo",
                      Version = 2.0,
@@ -43,7 +43,7 @@ namespace NoFallesAsiste.Application.Data
                 (
                  new Ficha
                  {
-                     Id = 1,
+                     FichaId = 1,
                      StartTraining = new DateTime(2021, 01, 01),
                      EndTraining = new DateTime(2022, 01, 01),
                      StartPractice = new DateTime(2021, 06, 01),
@@ -52,7 +52,7 @@ namespace NoFallesAsiste.Application.Data
                  },
                  new Ficha
                  {
-                     Id = 2,
+                     FichaId = 2,
                      StartTraining = new DateTime(2022, 01, 01),
                      EndTraining = new DateTime(2023, 01, 01),
                      StartPractice = new DateTime(2022, 06, 01),
@@ -62,6 +62,6 @@ namespace NoFallesAsiste.Application.Data
                 );
         }
         public DbSet<Ficha> Fichas { get; set; }
-        public DbSet<Programa> Programas { get; set; }
+        public DbSet<Programs> Programss { get; set; }
     }
 }

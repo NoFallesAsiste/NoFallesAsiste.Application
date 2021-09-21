@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace NoFallesAsiste.Application.Models
 {
-    [Table("Programa")]
-    public class Programa
+    [Table("Programs")]
+    public class Programs
     {
         [Key]
-        public int Id { get; set; }
+        public int ProgramsId { get; set; }
 
         [StringLength(150)]
         [Required(ErrorMessage = "Nombre del programa requerido")]

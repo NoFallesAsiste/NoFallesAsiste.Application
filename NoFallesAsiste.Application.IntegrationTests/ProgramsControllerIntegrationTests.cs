@@ -7,17 +7,17 @@ using Xunit;
 
 namespace NoFallesAsiste.Application.IntegrationTests
 {
-    public class ProgramaControllerIntegrationTests : IClassFixture<TestingWebAppFactory<Startup>>
+    public class ProgramsControllerIntegrationTests : IClassFixture<TestingWebAppFactory<Startup>>
     {
         private readonly HttpClient _client;
-        public ProgramaControllerIntegrationTests(TestingWebAppFactory<Startup> factory)
+        public ProgramsControllerIntegrationTests(TestingWebAppFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }
         [Fact]
         public async Task Index_WhenCalled_ReturnsApplicationForm()
         {
-            var response = await _client.GetAsync("/Programas");
+            var response = await _client.GetAsync("/Programs");
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             Assert.Contains("Analisis y Desarrollo de sistemas de informacion", responseString);
@@ -26,15 +26,15 @@ namespace NoFallesAsiste.Application.IntegrationTests
         [Fact]
         public async Task Create_WhenCalled_ReturnsCreateForm()
         {
-            var response = await _client.GetAsync("/Programas/Create");
+            var response = await _client.GetAsync("/Programs/Create");
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
-            Assert.Contains("Programa", responseString);
+            Assert.Contains("Programas", responseString);
         }
         [Fact]
         public async Task Create_SentWrongModel_ReturnsViewWithErrorMessages()
         {
-            var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Programas/Create");
+            var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Programs/Create");
             var formModel = new Dictionary<string, string>
                 {
                     { "Description", "Sin descripcion" },
@@ -50,7 +50,7 @@ namespace NoFallesAsiste.Application.IntegrationTests
         [Fact]
         public async Task Create_WhenPOSTExecuted_ReturnsToIndexViewWithCreatedPrograma()
         {
-            var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Programas/Create");
+            var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Programs/Create");
             var formModel = new Dictionary<string, string>
             {
                 { "Name", "Nuevo Programa" },

@@ -36,11 +36,11 @@ namespace NoFallesAsiste.Application.Repository
             _context.SaveChanges();
         }
 
-        public bool FichaExists(int id) => _context.Fichas.Any(e => e.Id == id);
+        public bool FichaExists(int id) => _context.Fichas.Any(e => e.FichaId == id);
 
         public IEnumerable<Ficha> GetAll() => _context.Fichas.ToList();
 
         public Ficha GetFicha(int id) => _context.Fichas
-            .SingleOrDefault(e => e.Id.Equals(id));
+            .SingleOrDefault(e => e.FichaId.Equals(id));
     }
 }
