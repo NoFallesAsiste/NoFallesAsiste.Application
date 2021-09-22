@@ -11,7 +11,7 @@ namespace NoFallesAsiste.Application.Models
     public class Ficha
     {
         [Key]
-        public int Id { get; set; }
+        public int FichaId { get; set; }
         [Required(ErrorMessage = "La fecha de inicio de la formación es requerida")]
         public DateTime StartTraining { get; set; }
         public DateTime EndTraining { get; set; }
@@ -23,6 +23,9 @@ namespace NoFallesAsiste.Application.Models
         //Foreing Key
         [Required(ErrorMessage = "El programa de la ficha es requerido")]
         public int ProgramId { get; set; }
-        public Programa Program { get; set; }
+        public Programs Programs { get; set; }
+
+        //Navegation properties
+        private ICollection<AssignedFicha> AssignedFicha { get; set; }
     }
 }

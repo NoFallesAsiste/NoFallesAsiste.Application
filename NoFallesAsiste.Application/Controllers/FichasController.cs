@@ -72,7 +72,7 @@ namespace NoFallesAsiste.Application.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,StartTraining,EndTraining,StartPractice,HoraryId,ProgramId")] Ficha ficha)
         {
-            if (id != ficha.Id)
+            if (id != ficha.FichaId)
             {
                 return NotFound();
             }

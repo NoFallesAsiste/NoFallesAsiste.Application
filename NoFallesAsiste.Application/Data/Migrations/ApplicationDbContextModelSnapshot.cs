@@ -82,6 +82,10 @@ namespace NoFallesAsiste.Application.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -133,6 +137,8 @@ namespace NoFallesAsiste.Application.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -219,6 +225,87 @@ namespace NoFallesAsiste.Application.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("NoFallesAsiste.Application.Models.AssignedFicha", b =>
+                {
+                    b.Property<int>("AssignedFichaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AspNetUsersId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AspNetUsersId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("FichaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusAssignedFichaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AssignedFichaId");
+
+                    b.HasIndex("AspNetUsersId1");
+
+                    b.HasIndex("FichaId");
+
+                    b.ToTable("AssignedFicha");
+                });
+
+            modelBuilder.Entity("NoFallesAsiste.Application.Models.Class", b =>
+                {
+                    b.Property<int>("ClassId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClassRoom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ClassStartDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FichaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("ClassId");
+
+                    b.HasIndex("FichaId");
+
+                    b.ToTable("Class");
+
+                    b.HasData(
+                        new
+                        {
+                            ClassId = 1,
+                            ClassRoom = "Meet",
+                            ClassStartDateTime = new DateTime(2021, 9, 21, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Manejo de framework Entity de .net",
+                            FichaId = 1,
+                            Name = "Programación profunda"
+                        },
+                        new
+                        {
+                            ClassId = 2,
+                            ClassRoom = "Meet",
+                            ClassStartDateTime = new DateTime(2021, 9, 21, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Future with will",
+                            FichaId = 1,
+                            Name = "English 2"
+                        });
+                });
+
             modelBuilder.Entity("NoFallesAsiste.Application.Models.Ficha", b =>
                 {
                     b.Property<int>("Id")
@@ -251,20 +338,20 @@ namespace NoFallesAsiste.Application.Data.Migrations
                         new
                         {
                             Id = 1,
-                            EndTraining = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTraining = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HoraryId = 1,
                             ProgramId = 1,
-                            StartPractice = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTraining = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartPractice = new DateTime(2021, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTraining = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            EndTraining = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTraining = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HoraryId = 1,
                             ProgramId = 2,
-                            StartPractice = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTraining = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartPractice = new DateTime(2022, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTraining = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -300,7 +387,7 @@ namespace NoFallesAsiste.Application.Data.Migrations
                         {
                             Id = 1,
                             Description = "Programa para el estudio del ciclo de vida del software y su desarrollo",
-                            Name = "Analísis y Desarrollo de sistemas de información",
+                            Name = "Analisis y Desarrollo de sistemas de informacion",
                             TypeProgramId = 1,
                             Version = 1.0
                         },
@@ -308,10 +395,33 @@ namespace NoFallesAsiste.Application.Data.Migrations
                         {
                             Id = 2,
                             Description = "Programa para el estudio del ciclo de vida del software y su desarrollo",
-                            Name = "Analísis y Desarrollo de software",
+                            Name = "Analisis y Desarrollo de software",
                             TypeProgramId = 1,
                             Version = 2.0
                         });
+                });
+
+            modelBuilder.Entity("ControlAsitencia.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Apellidos")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ciudad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombres")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pais")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -363,6 +473,34 @@ namespace NoFallesAsiste.Application.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("NoFallesAsiste.Application.Models.AssignedFicha", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "AspNetUsers")
+                        .WithMany()
+                        .HasForeignKey("AspNetUsersId1");
+
+                    b.HasOne("NoFallesAsiste.Application.Models.Ficha", "Ficha")
+                        .WithMany()
+                        .HasForeignKey("FichaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AspNetUsers");
+
+                    b.Navigation("Ficha");
+                });
+
+            modelBuilder.Entity("NoFallesAsiste.Application.Models.Class", b =>
+                {
+                    b.HasOne("NoFallesAsiste.Application.Models.Ficha", "Ficha")
+                        .WithMany()
+                        .HasForeignKey("FichaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ficha");
                 });
 
             modelBuilder.Entity("NoFallesAsiste.Application.Models.Ficha", b =>
